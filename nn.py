@@ -47,7 +47,7 @@ def softmax(x, axis=-1):
 _activation = {
     'None': lambda x: x,
     'sigmoid': lambda x: 1 / (1 + np.exp(-x)),
-    'relu': lambda x: x * (x > 0),
+    'relu': lambda x: np.maximum(x, 0),
     'softmax': softmax
     # lambda x: np.exp(x) / sum(np.exp(x))
 }
@@ -55,7 +55,7 @@ _activation = {
 derivative = {
     'None': lambda a: np.ones(shape=a.shape),
     'sigmoid': lambda a: np.array(a * (1 - a)),
-    'relu': lambda a: (a > 0) * 1
+    'relu': lambda a: np.array((a > 0) * 1)
 }
 
 cost_function = {

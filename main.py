@@ -52,25 +52,26 @@ def print_predict(model, x_test, y_test):
 
 
 def main():
-    x_train, x_test, y_train, y_test = simple_data()
-    for i in range(100):
-        model, history = get_model(x_train, y_train)
-        y_pred = model.predict(x_test)
-        print(f'Model {i+1} MSE: {mse(y_pred, y_test)}')
+    # x_train, x_test, y_train, y_test = simple_data()
+    # for i in range(100):
+    #     model, history = get_model(x_train, y_train)
+    #     y_pred = model.predict(x_test)
+    #     print(f'Model {i+1} MSE: {mse(y_pred, y_test)}')
+    more_complex()
 
 
 def more_complex():
     x_train, x_test, y_train, y_test = complex_data()
 
     model = Sequential(input_dim=20)
-    model.add_layer(64, activation='relu')
-    model.add_layer(32, activation='relu')
-    model.add_layer(16, activation='relu')
-    model.add_layer(8, activation='relu')
+    model.add_layer(64, activation='sigmoid')
+    model.add_layer(32, activation='sigmoid')
+    model.add_layer(16, activation='sigmoid')
+    model.add_layer(8, activation='sigmoid')
     model.add_layer(4, activation='softmax')
     model.summary()
     model.compile(lr=0.001, loss='categorical_crossentropy')
-    model.fit(x_train, y_train, batch_size=32, epochs=100)
+    model.fit(x_train, y_train, batch_size=32, epochs=100, verbose=True)
 
 
 if __name__ == '__main__':
