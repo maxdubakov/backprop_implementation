@@ -32,9 +32,9 @@ def complex_data():
 
 def get_model(x_train, y_train, verbose=False):
     model = Sequential(input_dim=1)
-    model.add_layer(8, activation='sigmoid')
-    model.add_layer(4, activation='sigmoid')
-    model.add_layer(2, activation='sigmoid')
+    model.add_layer(8, activation='relu')
+    model.add_layer(4, activation='relu')
+    model.add_layer(2, activation='relu')
     model.add_layer(1)
     if verbose:
         model.summary()
@@ -52,12 +52,12 @@ def print_predict(model, x_test, y_test):
 
 
 def main():
-    # x_train, x_test, y_train, y_test = simple_data()
-    # for i in range(100):
-    #     model, history = get_model(x_train, y_train)
-    #     y_pred = model.predict(x_test)
-    #     print(f'Model {i+1} MSE: {mse(y_pred, y_test)}')
-    more_complex()
+    x_train, x_test, y_train, y_test = simple_data()
+    for i in range(100):
+        model, history = get_model(x_train, y_train)
+        y_pred = model.predict(x_test)
+        print(f'Model {i+1} MSE: {mse(y_pred, y_test)}')
+    # more_complex()
 
 
 def more_complex():

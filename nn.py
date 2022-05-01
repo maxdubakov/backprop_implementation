@@ -107,7 +107,7 @@ class Sequential(object):
 
     def __step(self, x, y, batch_size):
         all_activations = self.__fit_predict(x)
-        y_pred = np.expand_dims([_a[0] for _a in all_activations[:, -1]], axis=1)
+        y_pred = np.array([_a for _a in all_activations[:, -1]])
         delta_l_1 = np.subtract(y_pred, y).T
         for i in range(len(self.__weights) - 1, -1, -1):
             activations = self.__get_current_activations(all_activations, i)
@@ -138,7 +138,6 @@ class Sequential(object):
     def __fit_predict(self, x):
         x = to_numpy(x)
         self.__check_dims(x)
-
         all_activations = []
         for _x in x:
             a = _x.T
@@ -146,9 +145,9 @@ class Sequential(object):
             for layer, weights, bias in zip(self.__layers[1:], self.__weights, self.__biases):
                 z = np.add(np.matmul(weights, a), bias)
                 a = _activation[layer['activation']](z)
-                current_activation.append(np.array(a, dtype=np.float64))
-            all_activations.append(current_activation)
-        return to_numpy(all_activations)
+                current_activation.append(a)
+            all_activations.append(np.array(current_activation, dtype=object))
+        return np.array(all_activations, dtype=object)
 
     def __check_dims(self, x):
         input_neurons = self.__layers[0]['neurons']
