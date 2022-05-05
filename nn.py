@@ -102,7 +102,8 @@ class Sequential(object):
             current_error = round(self.__loss(epoch_predict, y), 3)
             history.append(current_error)
             if verbose:
-                print(f'Epoch {epoch + 1}\t\t\tloss: {current_error}', end='\n')
+                print(f'\rEpoch {epoch + 1}\t\tloss: {current_error}', end='', flush=True)
+        print('\n')
         return history
 
     def __step(self, x, y, batch_size):
