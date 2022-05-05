@@ -2,3 +2,4 @@
 *.iml
 data
 .DS_Store
+__pychache__
